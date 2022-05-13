@@ -6,7 +6,7 @@ if(isset($_POST['add_to_wishlist'])){
       header('location:login.php');
    }else{
 
-      $productoId = $_POST['productoId'];      
+      $productoId = $_POST['producto_id'];      
       $nombre = $_POST['nombre'];     
       $precio = $_POST['precio'];      
       $imagen = $_POST['imagen'];
@@ -39,7 +39,7 @@ if(isset($_POST['add_to_cart'])){
       header('location:login.php');
    }else{
 
-      $productoId = $_POST['productoId'];     
+      $productoId = $_POST['producto_id'];     
       $nombre = $_POST['nombre'];      
       $precio = $_POST['precio'];      
       $imagen = $_POST['imagen'];      

@@ -153,7 +153,7 @@ include './components/wishlist_cart.php';
       while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
    ?>
    <form action="" method="post" class="box">
-      <input type="hidden" name="productoId" value="<?= $fetch_product['id']; ?>">
+      <input type="hidden" name="producto_id" value="<?= $fetch_product['id']; ?>">
       <input type="hidden" name="nombre" value="<?= $fetch_product['nombre']; ?>">
       <input type="hidden" name="precio" value="<?= $fetch_product['precio']; ?>">
       <input type="hidden" name="imagen" value="<?= $fetch_product['imagen_01']; ?>">
