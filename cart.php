@@ -68,7 +68,7 @@ if(isset($_POST['update_qty'])){
    <form action="" method="post" class="box">
       <input type="hidden" name="carrito_id" value="<?= $fetch_cart['id']; ?>">
       <a href="quick_view.php?pid=<?= $fetch_cart['producto_id']; ?>" class="fas fa-eye"></a>
-      <img src="uploaded_img/<?= $fetch_cart['imagen']; ?>" alt="">
+      <img src="uploaded_img/<?= $fetch_cart['imagen']; ?>" alt="imagen producto">
       <div class="name"><?= $fetch_cart['nombre']; ?></div>
       <div class="flex">
          <div class="price"><?= $fetch_cart['precio']; ?> €</div>

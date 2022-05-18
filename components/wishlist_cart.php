@@ -61,7 +61,7 @@ if(isset($_POST['add_to_cart'])){
             $delete_wishlist->execute([$nombre, $user_id]);
          }
 
-        $insert_cart = $conn->prepare("INSERT INTO `carrito`(usuario_id, producto_id, nombre, precio, cantidad, imagen) VALUES(?,?,?,?,?,?)");
+         $insert_cart = $conn->prepare("INSERT INTO `carrito`(usuario_id, producto_id, nombre, precio, cantidad, imagen) VALUES(?,?,?,?,?,?)");
          $insert_cart->execute([$user_id, $productoId, $nombre, $precio, $cantidad, $imagen]);
          $message[] = 'Añadido al carrito';
          
