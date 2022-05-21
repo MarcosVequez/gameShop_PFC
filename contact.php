@@ -8,7 +8,7 @@ if(isset($_SESSION['user_id'])){
    $user_id = $_SESSION['user_id'];
 }else{
    $user_id = '';
-   header('location:login.php');
+   
 };
 
 if(isset($_POST['send'])){
@@ -56,19 +56,32 @@ if(isset($_POST['send'])){
 <body>
    
 <?php include 'components/web_header.php'; ?>
-
 <section class="contact">
+    <div class="box-container">
+<?php
+      if($user_id == ''){?>
+            
+                <p class="empty">Por favor Logueate para enviar un mensaje</p>
+            
+      <?php }else{ ?>
+
 
    <form action="" method="post">
       <h3>Ponte en contacto</h3>
-      <input type="text" name="nombre" placeholder="Introduce tu nombre" required maxlength="20" class="box" value="<?= $fetch_profile["nombre"]; ?>">
+      <input type="text" name="nombre" placeholder="Introduce tu nombre" required maxlength="50" class="box" value="<?= $fetch_profile["nombre"]; ?>">
       <input type="email" name="email" placeholder="Introduce tu email" required maxlength="50" class="box" value="<?= $fetch_profile["email"]; ?>">
-      <input type="number" name="telefono" min="0" max="9999999999" placeholder="Introduce tu número de teléfono" required  class="box">
-      <textarea name="mensaje" class="box" placeholder="Escribe tu mensaje" cols="30" rows="10"></textarea>
+      <input type="number" name="telefono" min="100000000" max="999999999"  placeholder="Introduce tu número de teléfono" required  class="box">
+      <textarea name="mensaje" class="box" placeholder="Escribe tu mensaje" cols="30" rows="10" required></textarea>
       <input type="submit" value="Envía el mensaje" name="send" class="btn">
    </form>
+  
 
-</section>
+<?php
+      }
+?>
+    </div>
+</section>       
+
 
 
 
