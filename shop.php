@@ -47,8 +47,83 @@ include 'components/wishlist_cart.php';
    <div class="box-container">
 
    <?php
-     $select_products = $conn->prepare("SELECT * FROM `productos` ORDER BY `id` DESC  LIMIT 90"); 
+     
+     $select_products = $conn->prepare("SELECT * FROM `productos` ORDER BY `id` DESC  LIMIT 6"); 
      $select_products->execute();
+     if($select_products->rowCount() > 0){
+      while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
+   ?>
+   <?php include 'components/box_product.php'; ?>
+   <?php
+      }
+   }else{
+      echo '<p class="empty">No hay productos en la tienda</p>';
+   }
+   ?>
+
+   </div>
+
+</section>
+<section class="products">
+
+   <h1 class="heading">Juegos Xbox</h1>
+
+   <div class="box-container">
+
+   <?php
+     $category_name = 'Juegos Xbox';
+     $select_products = $conn->prepare("SELECT * FROM `productos` WHERE categoria = ? ORDER BY `id`  DESC  LIMIT 6");     
+     $select_products->execute([$category_name]);
+     if($select_products->rowCount() > 0){
+      while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
+   ?>
+   <?php include 'components/box_product.php'; ?>
+   <?php
+      }
+   }else{
+      echo '<p class="empty">No hay productos en la tienda</p>';
+   }
+   ?>
+
+   </div>
+
+</section>
+<section class="products">
+
+   <h1 class="heading">Juegos PlayStation</h1>
+
+   <div class="box-container">
+
+   <?php
+     $category_name = 'Juegos PlayStation';
+     $select_products = $conn->prepare("SELECT * FROM `productos` WHERE categoria = ? ORDER BY `id`  DESC  LIMIT 6");     
+     $select_products->execute([$category_name]);
+     if($select_products->rowCount() > 0){
+      while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
+   ?>
+   <?php include 'components/box_product.php'; ?>
+   <?php
+      }
+   }else{
+      echo '<p class="empty">No hay productos en la tienda</p>';
+   }
+   ?>
+
+   </div>
+
+</section>
+
+</section>
+<section class="products">
+
+   <h1 class="heading">Juegos Switch</h1>
+
+   <div class="box-container">
+
+   <?php
+     $category_name = 'Juegos Switch';
+     $select_products = $conn->prepare("SELECT * FROM `productos` WHERE categoria = ? ORDER BY `id`  DESC  LIMIT 6");     
+     $select_products->execute([$category_name]);
      if($select_products->rowCount() > 0){
       while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
    ?>
@@ -99,4 +174,5 @@ var swiper = new Swiper(".category-slider", {
 
 </body>
 </html>
+
 

@@ -66,8 +66,8 @@ if(isset($_POST['submit'])){
       <h3>Actualiza el usuario</h3>
       <input type="hidden" name="prev_password" value="<?= $fetch_profile["password"]; ?>">
       <input type="text" name="nombre" required  placeholder="Introduce tu nombre"  maxlength="100"  class="box" value="<?= $fetch_profile["nombre"]; ?>">
-      <input type="email" name="email" required  placeholder="Introduce tu email"  maxlength="50"  class="box" value="<?= $fetch_profile["email"]; ?>">
-      <input type="password" name="old_password" required placeholder="Introduce el antiguo password" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
+      <input type="email" name="email" required readonly placeholder="Introduce tu email"  maxlength="50"  class="box" value="<?= $fetch_profile["email"]; ?>">
+      <input type="password" name="old_password" required placeholder="Introduce el antiguo password" maxlength="20"  class="box">
       <input type="password" name="new_password" required placeholder="Introduce el nuevo password" minlength="6" maxlength="20"  class="box">
       <input type="password" name="cpassword" required placeholder="Repite el nuevo password" minlength="6" maxlength="20"  class="box">
       <input type="submit" value="Actualizar" class="btn" name="submit">

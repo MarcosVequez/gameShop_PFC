@@ -49,7 +49,7 @@ include './components/wishlist_cart.php';
 
       <div class="swiper-slide slide">
          <div class="image">
-            <img src="imagenes/home-img-2.png" alt="">
+            <img src="imagenes/Xbox_fh5_01.jpg" alt="Juego Forza Horizon 5">
          </div>
          <div class="content">
             <span>Juegos de videoconsola</span>
@@ -60,7 +60,7 @@ include './components/wishlist_cart.php';
 
       <div class="swiper-slide slide">
          <div class="image">
-            <img src="imagenes/home-img-2.png" alt="">
+            <img src="imagenes/Play_ratchetclank03.jpg" alt="Consola play">
          </div>
          <div class="content">
             <span>Videoconsolas</span>
@@ -71,7 +71,7 @@ include './components/wishlist_cart.php';
 
       <div class="swiper-slide slide">
          <div class="image">
-            <img src="imagenes/home-img-3.png" alt="">
+            <img src="imagenes/mando_Xbox_Azul02.jpg" alt="Mando Xbox">
          </div>
          <div class="content">
             <span>Periféricos</span>

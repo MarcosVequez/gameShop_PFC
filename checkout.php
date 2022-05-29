@@ -17,7 +17,7 @@ if(isset($_POST['pedido'])){
    $telefono = $_POST['telefono'];   
    $email = $_POST['email'];   
    $metodo = $_POST['metodo'];   
-   $direccion =  $_POST['calle'] .', '. $_POST['piso'] .', '. $_POST['ciudad'] .', '. $_POST['provincia'] .', '. $_POST['pais'] .' - '. $_POST['codigo_postal'];
+   $direccion =  $_POST['calle'] .', '. $_POST['piso'] .', '. $_POST['ciudad'] .', '. $_POST['provincia'] .', '. $_POST['pais'] .' - CP: '. $_POST['codigo_postal'];
    $total_productos = $_POST['total_productos'];
    $total_precio = $_POST['total_precio'];
 
@@ -95,7 +95,7 @@ if(isset($_POST['pedido'])){
       <div class="flex">
          <div class="inputBox">
             <span>Nombre :</span>
-            <input type="text" name="nombre" required placeholder="introduce tu nombre" class="box" maxlength="100" value="<?= $fetch_profile["nombre"]; ?>">
+            <input type="text" name="nombre" required readonly placeholder="introduce tu nombre" class="box" maxlength="100" value="<?= $fetch_profile["nombre"]; ?>">
          </div>
          <div class="inputBox">
             <span>Número de teléfono :</span>
@@ -103,7 +103,7 @@ if(isset($_POST['pedido'])){
          </div>
          <div class="inputBox">
             <span>Email :</span>
-            <input type="email" name="email" required placeholder="Introduce tu email" class="box" maxlength="50" value="<?= $fetch_profile["email"]; ?>">
+            <input type="email" name="email" required readonly placeholder="Introduce tu email" class="box" maxlength="50" value="<?= $fetch_profile["email"]; ?>">
          </div>
          <div class="inputBox">
             <span>Método de pago:</span>

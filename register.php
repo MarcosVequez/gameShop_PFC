@@ -19,7 +19,7 @@ if(isset($_POST['submit'])){
    
 
    $select_user = $conn->prepare("SELECT * FROM `usuario` WHERE email = ?");
-   $select_user->execute([$email,]);
+   $select_user->execute([$email]);
    $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
    if($select_user->rowCount() > 0){
@@ -61,7 +61,7 @@ if(isset($_POST['submit'])){
 
    <form action="" method="post">
       <h3>Regístrate ahora</h3>
-      <input type="text" name="nombre" required placeholder="Introduce tu nombre " maxlength="20"  class="box">
+      <input type="text" name="nombre" required placeholder="Introduce tu nombre " maxlength="100"  class="box">
       <input type="email" name="email" required placeholder="Introduce tu email" maxlength="50"  class="box" >
       <input type="password" name="password" required placeholder="Introduce tu contraseña" minlength="6" maxlength="20"  class="box">
       <input type="password" name="cpassword" required placeholder="Repite contraseña" minlength="6" maxlength="20"  class="box">

@@ -54,7 +54,7 @@ if(isset($_SESSION['user_id'])){
       <p>Dirección : <span><?= $fetch_orders['direccion']; ?></span></p>
       <p>Método de pago : <span><?= $fetch_orders['metodo']; ?></span></p>
       <p>Productos : <span><?= $fetch_orders['total_productos']; ?></span></p>
-      <p>Precio total : <span>$<?= $fetch_orders['total_precio']; ?>/-</span></p>
+      <p>Precio total : <span><?= $fetch_orders['total_precio']; ?> €</span></p>
       <p>Estado del pedido : <span style="color:<?php if($fetch_orders['estado_pedido'] == 'Pendiente'){ echo 'red'; }else{ echo 'green'; }; ?>"><?= $fetch_orders['estado_pedido']; ?></span> </p>
    </div>
    <?php

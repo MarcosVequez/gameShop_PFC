@@ -57,7 +57,7 @@
          ?>
          <p>Por favor primero haz Login o Regístrate</p>
          <div class="flex-btn">
-            <a href="registro.php" class="option-btn">registro</a>
+            <a href="register.php" class="option-btn">registro</a>
             <a href="login.php" class="option-btn">login</a>
          </div>
          <?php

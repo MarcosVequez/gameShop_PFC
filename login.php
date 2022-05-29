@@ -67,7 +67,7 @@ if(isset($_POST['submit'])){
       <input type="password" name="password" required placeholder="Introduce tu contraseña" maxlength="20"  class="box">
       <input type="submit" value="Login" class="btn" name="submit">
       <p>¿No tienes una cuenta?</p>
-      <a href="registro.php" class="option-btn">Regístrate</a>
+      <a href="register.php" class="option-btn">Regístrate</a>
    </form>
 
 </section>

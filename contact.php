@@ -68,8 +68,8 @@ if(isset($_POST['send'])){
 
    <form action="" method="post">
       <h3>Ponte en contacto</h3>
-      <input type="text" name="nombre" placeholder="Introduce tu nombre" required maxlength="50" class="box" value="<?= $fetch_profile["nombre"]; ?>">
-      <input type="email" name="email" placeholder="Introduce tu email" required maxlength="50" class="box" value="<?= $fetch_profile["email"]; ?>">
+      <input type="text" name="nombre" placeholder="Introduce tu nombre" required readonly maxlength="50" class="box" value="<?= $fetch_profile["nombre"]; ?>">
+      <input type="email" name="email" placeholder="Introduce tu email" required readonly maxlength="50" class="box" value="<?= $fetch_profile["email"]; ?>">
       <input type="number" name="telefono" min="100000000" max="999999999"  placeholder="Introduce tu número de teléfono" required  class="box">
       <textarea name="mensaje" class="box" placeholder="Escribe tu mensaje" cols="30" rows="10" required></textarea>
       <input type="submit" value="Envía el mensaje" name="send" class="btn">
