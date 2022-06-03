@@ -3,7 +3,7 @@
 include 'components/connect.php';
 
 session_start();
-
+//Si hay sesion iniciada guardo en $user_id el usuario que ha iniciado la sesión si no lo dejo vacio
 if(isset($_SESSION['user_id'])){
    $user_id = $_SESSION['user_id'];
 }else{
@@ -29,6 +29,7 @@ if(isset($_SESSION['user_id'])){
 </head>
 <body>
    
+<!-- Incluyo el componente header -->
 <?php include 'components/web_header.php'; ?>
 
 <section class="orders">
@@ -38,14 +39,17 @@ if(isset($_SESSION['user_id'])){
    <div class="box-container">
 
    <?php
+   //si no estás logueado se muestra este mensaje
       if($user_id == ''){
          echo '<p class="empty">logueate para ver tus pedidos</p>';
       }else{
+         // Consulta a la base de datos para ver los pedidos del usuario logueado
          $select_orders = $conn->prepare("SELECT * FROM `pedidos` WHERE usuario_id = ?");
          $select_orders->execute([$user_id]);
          if($select_orders->rowCount() > 0){
             while($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)){
    ?>
+   <!-- Muestro los pedidos del  usuario-->
    <div class="box">
       <p>Fecha de pedido : <span><?= $fetch_orders['fecha_pedido']; ?></span></p>
       <p>Nombre: <span><?= $fetch_orders['nombre']; ?></span></p>
@@ -60,6 +64,7 @@ if(isset($_SESSION['user_id'])){
    <?php
       }
       }else{
+         // si no hay pedidos se muestra este mensaje
          echo '<p class="empty">No tienes pedidos</p>';
       }
       }
@@ -68,7 +73,7 @@ if(isset($_SESSION['user_id'])){
    </div>
 
 </section>
-
+<!-- Incluyo el componente footer -->
 <?php include 'components/footer.php'; ?>
 
 <script src="js/script.js"></script>

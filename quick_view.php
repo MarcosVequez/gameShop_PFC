@@ -4,11 +4,14 @@ include 'components/connect.php';
 
 session_start();
 
+//Si hay sesion iniciada guardo en $user_id el usuario que ha iniciado la sesión si no lo dejo vacio
 if(isset($_SESSION['user_id'])){
    $user_id = $_SESSION['user_id'];
 }else{
    $user_id = '';
 };
+
+//incluyo el componente wishlist_cart
 
 include 'components/wishlist_cart.php';
 
@@ -30,6 +33,7 @@ include 'components/wishlist_cart.php';
 
 </head>
 <body>
+<!-- Incluyo el componente web_header -->
    
 <?php include 'components/web_header.php'; ?>
 
@@ -38,17 +42,21 @@ include 'components/wishlist_cart.php';
    <h1 class="heading">Vista del producto</h1>
 
    <?php
+      //Consulto a la base de datos el producto con la id de producto = pid
      $producto_id = $_GET['pid'];
      $select_products = $conn->prepare("SELECT * FROM `productos` WHERE id = ?"); 
      $select_products->execute([$producto_id]);
      if($select_products->rowCount() > 0){
       while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
    ?>
+   <!-- Guardo los valores que paso con el post cuando añado al carrito 
+   o a la lista de deseos, los métodos post están en whislist_cart.php que está incluido anteriormente--> 
    <form action="" method="post" class="box">
       <input type="hidden" name="producto_id" value="<?= $fetch_product['id']; ?>">
       <input type="hidden" name="nombre" value="<?= $fetch_product['nombre']; ?>">
       <input type="hidden" name="precio" value="<?= $fetch_product['precio']; ?>">
       <input type="hidden" name="imagen" value="<?= $fetch_product['imagen_01']; ?>">
+      <!-- Muestro el producto-->
       <div class="row">
          <div class="image-container">
             <div class="main-image">
@@ -67,6 +75,7 @@ include 'components/wishlist_cart.php';
                <input type="number" name="cantidad" class="qty" min="1" max="99" value="1">
             </div>
             <div class="details"><?= $fetch_product['detalles']; ?></div>
+            <!-- botones para añadir a la lista de deseos o al carrito -->
             <div class="flex-btn">
                <input type="submit" value="Añadir al carrito" class="btn" name="add_to_cart">
                <input class="option-btn" type="submit" value="Añadir a lista de deseos" name="add_to_wishlist" >
@@ -76,6 +85,7 @@ include 'components/wishlist_cart.php';
    </form>
    <?php
       }
+      // si al relizar la consulta a la base de datos no se recibe ninguna fila se muestra este mensaje
    }else{
       echo '<p class="empty">No existe ese producto en la tienda</p>';
    }
@@ -85,6 +95,7 @@ include 'components/wishlist_cart.php';
 
 
 
+<!-- Incluyo el componente footer -->
 
 <?php include 'components/footer.php'; ?>
 

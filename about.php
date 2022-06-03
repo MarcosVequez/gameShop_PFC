@@ -3,7 +3,7 @@
 include 'components/connect.php';
 
 session_start();
-
+//Si hay sesion iniciada guardo en $user_id el usuario que ha iniciado la sesión si no lo dejo vacio
 if(isset($_SESSION['user_id'])){
    $user_id = $_SESSION['user_id'];
 }else{
@@ -30,9 +30,10 @@ if(isset($_SESSION['user_id'])){
 
 </head>
 <body>
-   
+<!-- Incluyo el componente header -->   
 <?php include 'components/web_header.php'; ?>
 
+<!-- Muestro la primera fila de la página sobre nosotros-->
 <section class="about">
 
    <div class="row">
@@ -52,7 +53,7 @@ if(isset($_SESSION['user_id'])){
    </div>
 
 </section>
-
+<!-- Muestro la segunda fila de la página sobre nosotros-->
 <section class="about">
 
    <div class="row">
@@ -73,6 +74,7 @@ if(isset($_SESSION['user_id'])){
 
 </section>
 
+<!-- Muestro la sección de comentarios de la página sobre nosotros-->
 <section class="reviews">
    
    <h1 class="heading">Opiniones de clientes</h1>
@@ -168,13 +170,15 @@ if(isset($_SESSION['user_id'])){
 </section>
 
 
-
+<!-- incluyo el footer -->
 <?php include 'components/footer.php'; ?>
 
+<!-- Script que añade el slider -->
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 
 <script src="js/script.js"></script>
 
+<!-- Configuración del slider de la página about.php -->
 <script>
 
 var swiper = new Swiper(".reviews-slider", {
