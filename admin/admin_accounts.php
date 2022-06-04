@@ -5,11 +5,11 @@ include '../components/connect.php';
 session_start();
 
 $admin_id = $_SESSION['admin_id'];
-
+// si no hay iniciada sesion de un admin reenvia a login
 if(!isset($admin_id)){
    header('location:login.php');
 }
-
+//función que elimina a un usuario admin
 if(isset($_GET['delete'])){
    $delete_id = $_GET['delete'];
    $delete_admins = $conn->prepare("DELETE FROM `usuario` WHERE id = ?");
@@ -48,6 +48,7 @@ if(isset($_GET['delete'])){
    </div>
    
    <?php
+      //Petición a la base de datos para ver los usuarios admin
       $select_accounts = $conn->prepare("SELECT * FROM `usuario` WHERE tipo_usuario = ?");
       $select_accounts->execute(['admin']);
       if($select_accounts->rowCount() > 0){
@@ -59,9 +60,11 @@ if(isset($_GET['delete'])){
       <div class="flex-btn">
          
          <?php
+         //en la ficha del admin logueado se muestra el botón actualizar
             if($fetch_accounts['id'] == $admin_id){
-               echo '<a href="update_profile.php" class="option-btn">update</a>';
+               echo '<a href="update_profile.php" class="option-btn">Actualizar</a>';
             }
+            // en los otros admin se muestra el botón de eliminar
             else {?>
                 <a href="admin_accounts.php?delete=<?= $fetch_accounts['id']; ?>" onclick="return confirm('¿Borrar la cuenta?')" class="delete-btn">Eliminar</a>
             <?php }

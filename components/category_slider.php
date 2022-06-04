@@ -1,3 +1,5 @@
+<!-- Código del slider de categorías-->
+
 <h1 class="heading">compra por categoría</h1>
 
    <div class="swiper category-slider">

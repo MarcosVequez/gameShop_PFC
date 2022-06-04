@@ -10,6 +10,8 @@ if(isset($_SESSION['user_id'])){
    $user_id = '';
 };
 
+// Código que se encarga de acualizar el usuario comprobando que las contraseñas sean correctas
+
 if(isset($_POST['submit'])){
 
    $name = $_POST['nombre'];   
@@ -61,7 +63,7 @@ if(isset($_POST['submit'])){
 <?php include 'components/web_header.php'; ?>
 
 <section class="form-container">
-
+<!-- Formulario de actulización de usuario-->
    <form action="" method="post">
       <h3>Actualiza el usuario</h3>
       <input type="hidden" name="prev_password" value="<?= $fetch_profile["password"]; ?>">

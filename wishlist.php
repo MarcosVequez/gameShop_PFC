@@ -3,7 +3,8 @@
 include 'components/connect.php';
 
 session_start();
-
+//Si hay sesión iniciada guardo en $user_id el usuario que ha iniciado la sesión si no lo dejo vacio
+// y redirijo a login.php
 if(isset($_SESSION['user_id'])){
    $user_id = $_SESSION['user_id'];
 }else{
@@ -12,13 +13,13 @@ if(isset($_SESSION['user_id'])){
 };
 
 include 'components/wishlist_cart.php';
-
+// función que borra de la lista de deseos
 if(isset($_POST['delete'])){
    $wishlist_id = $_POST['wishlist_id'];
    $delete_wishlist_item = $conn->prepare("DELETE FROM `wishlist` WHERE id = ?");
    $delete_wishlist_item->execute([$wishlist_id]);
 }
-
+// función que vacía toda la lista de deseos
 if(isset($_GET['delete_all'])){
    $delete_wishlist_item = $conn->prepare("DELETE FROM `wishlist` WHERE user_id = ?");
    $delete_wishlist_item->execute([$user_id]);
@@ -54,12 +55,14 @@ if(isset($_GET['delete_all'])){
 
    <?php
       $total = 0;
+      //calculo el precio total de la lista de deseos
       $select_wishlist = $conn->prepare("SELECT * FROM `wishlist` WHERE usuario_id = ?");
       $select_wishlist->execute([$user_id]);
       if($select_wishlist->rowCount() > 0){
          while($fetch_wishlist = $select_wishlist->fetch(PDO::FETCH_ASSOC)){
             $total += $fetch_wishlist['precio'];  
    ?>
+   <!-- Formulario que muestra el producto con os botones de eliminar y añadir al carrito-->
    <form action="" method="post" class="box">
       <input type="hidden" name="producto_id" value="<?= $fetch_wishlist['producto_id']; ?>">
       <input type="hidden" name="wishlist_id" value="<?= $fetch_wishlist['id']; ?>">
@@ -83,7 +86,7 @@ if(isset($_GET['delete_all'])){
    }
    ?>
    </div>
-
+   <!-- Muestro el total de precio de la lista de deseos -->
    <div class="wishlist-total">
       <p>Total : <span><?= $total; ?>€</span></p>
       <a href="shop.php" class="option-btn">Continuar comprando</a>

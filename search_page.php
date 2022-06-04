@@ -3,6 +3,7 @@
 include 'components/connect.php';
 
 session_start();
+//Si hay sesion iniciada guardo en $user_id el usuario que ha iniciado la sesión si no lo dejo vacio
 
 if(isset($_SESSION['user_id'])){
    $user_id = $_SESSION['user_id'];
@@ -45,6 +46,7 @@ include 'components/wishlist_cart.php';
    <div class="box-container">
 
    <?php
+   //función que busca los productos en la base datos por nombre o categoría
      if(isset($_POST['search_box']) OR isset($_POST['search_btn'])){
      $search_box = $_POST['search_box'];
      $select_products = $conn->prepare("SELECT * FROM `productos` WHERE nombre LIKE '%{$search_box}%' OR categoria LIKE '%{$search_box}%'"); 

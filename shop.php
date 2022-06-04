@@ -3,6 +3,7 @@
 include 'components/connect.php';
 
 session_start();
+//Si hay sesion iniciada guardo en $user_id el usuario que ha iniciado la sesión si no lo dejo vacio
 
 if(isset($_SESSION['user_id'])){
    $user_id = $_SESSION['user_id'];
@@ -35,7 +36,7 @@ include 'components/wishlist_cart.php';
 <?php include 'components/web_header.php'; ?>
 
 <section class="category">
-
+<!-- incluyo el component de slider de categorías--> 
    <?php include './components/category_slider.php'; ?>
 
 </section>
@@ -47,7 +48,7 @@ include 'components/wishlist_cart.php';
    <div class="box-container">
 
    <?php
-     
+     //busco los últimos 6 productos añadidos a la base de datos
      $select_products = $conn->prepare("SELECT * FROM `productos` ORDER BY `id` DESC  LIMIT 6"); 
      $select_products->execute();
      if($select_products->rowCount() > 0){
@@ -71,6 +72,7 @@ include 'components/wishlist_cart.php';
    <div class="box-container">
 
    <?php
+   //busco los últimos 6 juegos de xbox añadidos a la base de datos
      $category_name = 'Juegos Xbox';
      $select_products = $conn->prepare("SELECT * FROM `productos` WHERE categoria = ? ORDER BY `id`  DESC  LIMIT 6");     
      $select_products->execute([$category_name]);
@@ -95,6 +97,7 @@ include 'components/wishlist_cart.php';
    <div class="box-container">
 
    <?php
+   //busco los últimos 6 juegos de PlayStation añadidos a la base de datos
      $category_name = 'Juegos PlayStation';
      $select_products = $conn->prepare("SELECT * FROM `productos` WHERE categoria = ? ORDER BY `id`  DESC  LIMIT 6");     
      $select_products->execute([$category_name]);
@@ -121,6 +124,7 @@ include 'components/wishlist_cart.php';
    <div class="box-container">
 
    <?php
+   //busco los últimos 6 juegos de Switch añadidos a la base de datos
      $category_name = 'Juegos Switch';
      $select_products = $conn->prepare("SELECT * FROM `productos` WHERE categoria = ? ORDER BY `id`  DESC  LIMIT 6");     
      $select_products->execute([$category_name]);
@@ -146,7 +150,7 @@ include 'components/wishlist_cart.php';
 <script src="js/script.js"></script>
 
 <script>
-
+//código de configuración del slider de categoría
 var swiper = new Swiper(".category-slider", {
    loop:true,
    spaceBetween: 20,

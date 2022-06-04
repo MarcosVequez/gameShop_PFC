@@ -5,11 +5,12 @@ include '../components/connect.php';
 session_start();
 
 $admin_id = $_SESSION['admin_id'];
-
+// si no hay iniciada sesion de un admin reenvía a login
 if(!isset($admin_id)){
    header('location:login.php');
 }
-
+//función para borrar un usuario, el codigo comentado está así porque no es necesario, al borrar al usuario ya se borran en cascada 
+// las filas de las otras tablas con las que estaba relacionado
 if(isset($_GET['delete'])){
    $delete_id = $_GET['delete'];
    $delete_user = $conn->prepare("DELETE FROM `usuario` WHERE id = ?");
@@ -51,6 +52,7 @@ if(isset($_GET['delete'])){
    <div class="box-container">
 
    <?php
+   //muestro los usuarios
       $select_accounts = $conn->prepare("SELECT * FROM `usuario` WHERE tipo_usuario = ?");
       $select_accounts->execute(['usuario']);
       if($select_accounts->rowCount() > 0){
@@ -60,6 +62,7 @@ if(isset($_GET['delete'])){
       <p> Id de usuario : <span><?= $fetch_accounts['id']; ?></span> </p>
       <p> Nombre : <span><?= $fetch_accounts['nombre']; ?></span> </p>
       <p> Email : <span><?= $fetch_accounts['email']; ?></span> </p>
+      <!-- botón para borrar un usuario-->
       <a href="users_accounts.php?delete=<?= $fetch_accounts['id']; ?>" onclick="return confirm('¿Borra la cuenta? La información relacionada con el usuario también se borrará')" class="delete-btn">Borrar Cuenta</a>
    </div>
    <?php

@@ -5,11 +5,11 @@ include '../components/connect.php';
 session_start();
 
 $admin_id = $_SESSION['admin_id'];
-
+// si no hay iniciada sesion de un admin reenvía a login
 if(!isset($admin_id)){
    header('location:admin_login.php');
 }
-
+//función que actualiza el producto
 if(isset($_POST['update'])){
 
    $pid = $_POST['pid'];
@@ -22,7 +22,7 @@ if(isset($_POST['update'])){
    $update_product->execute([$name, $price, $details,$category, $pid]);
 
    $message[] = 'Producto actualizado correctamente';
-
+//actualizo las imagenes
    $old_image_01 = $_POST['old_image_01'];
    $image_01 = $_FILES['image_01']['name'];   
    $image_size_01 = $_FILES['image_01']['size'];
@@ -103,6 +103,7 @@ if(isset($_POST['update'])){
    <h1 class="heading">Actualizar producto</h1>
 
    <?php
+   //busco el producto a actualizar en la base de datos
       $update_id = $_GET['update'];
       $select_products = $conn->prepare("SELECT * FROM `productos` WHERE id = ?");
       $select_products->execute([$update_id]);
@@ -111,7 +112,7 @@ if(isset($_POST['update'])){
    ?>
 
    <section class="add-products">
-
+<!-- Formulario para actualizar el producto -->
    <form action="" method="post" enctype="multipart/form-data">
       <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
       <input type="hidden" name="old_image_01" value="<?= $fetch_products['imagen_01']; ?>">

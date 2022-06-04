@@ -5,6 +5,7 @@ include '../components/connect.php';
 session_start();
 
 $admin_id = $_SESSION['admin_id'];
+// si no hay iniciada sesion de un admin reenvía a home
 
 if(!isset($admin_id)){
    header('location:home.php');
@@ -44,6 +45,7 @@ if(!isset($admin_id)){
 
       <div class="box">
          <?php
+         //muestra el número de pedidos pendientes
             $total_pendings = 0;
             $select_pendings = $conn->prepare("SELECT * FROM `pedidos` WHERE estado_pedido = ?");
             $select_pendings->execute(['Pendiente']);
@@ -60,6 +62,7 @@ if(!isset($admin_id)){
 
       <div class="box">
          <?php
+         //muesstra los pedidos completados
             $total_completes = 0;
             $select_completes = $conn->prepare("SELECT * FROM `pedidos` WHERE estado_pedido = ?");
             $select_completes->execute(['Completado']);
@@ -76,6 +79,7 @@ if(!isset($admin_id)){
 
       <div class="box">
          <?php
+         //muestra el total de pedidos
             $select_orders = $conn->prepare("SELECT * FROM `pedidos`");
             $select_orders->execute();
             $number_of_orders = $select_orders->rowCount()
@@ -87,6 +91,7 @@ if(!isset($admin_id)){
 
       <div class="box">
          <?php
+         //muestra el total de productos
             $select_products = $conn->prepare("SELECT * FROM `productos`");
             $select_products->execute();
             $number_of_products = $select_products->rowCount()
@@ -98,6 +103,7 @@ if(!isset($admin_id)){
 
       <div class="box">
          <?php
+            //muestra el total de usuarios
             $select_users = $conn->prepare("SELECT * FROM `usuario` WHERE tipo_usuario = ?");
             $select_users->execute(['usuario']);
             $number_of_users = $select_users->rowCount()
@@ -109,6 +115,7 @@ if(!isset($admin_id)){
 
       <div class="box">
          <?php
+         //muestra el total de administradores
             $select_admins = $conn->prepare("SELECT * FROM `usuario` WHERE tipo_usuario = ?");
             $select_admins->execute(['admin']);
             $number_of_admins = $select_admins->rowCount()
@@ -120,6 +127,7 @@ if(!isset($admin_id)){
 
       <div class="box">
          <?php
+         //muestra el total de mensajes
             $select_messages = $conn->prepare("SELECT * FROM `mensajes`");
             $select_messages->execute();
             $number_of_messages = $select_messages->rowCount()

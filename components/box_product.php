@@ -1,3 +1,5 @@
+<!-- Código que muestra la tarjeta de un producto -->
+
 <form action="" method="post" class="box">
       <input type="hidden" name="producto_id" value="<?= $fetch_product['id']; ?>">
       <input type="hidden" name="nombre" value="<?= $fetch_product['nombre']; ?>">

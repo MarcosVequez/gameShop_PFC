@@ -1,3 +1,4 @@
+<!--  footer de la web-->
 <footer class="footer">
 
    <section class="grid">

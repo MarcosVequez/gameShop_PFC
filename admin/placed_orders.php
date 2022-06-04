@@ -4,12 +4,14 @@ include '../components/connect.php';
 
 session_start();
 
+// si no hay iniciada sesion de un admin reenvia a login
+
 $admin_id = $_SESSION['admin_id'];
 
 if(!isset($admin_id)){
    header('location:login.php');
 }
-
+//Función que actualiza el pedido
 if(isset($_POST['update_state'])){
    $order_id = $_POST['order_id'];
    $order_state = $_POST['order_state'];
@@ -17,6 +19,7 @@ if(isset($_POST['update_state'])){
    $update_state->execute([$order_state, $order_id]);
    $message[] = 'Actualizado el estado del pedido';
 }
+//función que borra el pedido
 
 if(isset($_GET['delete'])){
    $delete_id = $_GET['delete'];
@@ -51,11 +54,13 @@ if(isset($_GET['delete'])){
 <div class="box-container">
 
    <?php
+   //llamada a la base de datos para obtener los pedidos
       $select_orders = $conn->prepare("SELECT * FROM `pedidos`");
       $select_orders->execute();
       if($select_orders->rowCount() > 0){
          while($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)){
    ?>
+   <!-- Se muestran los pedidos -->
    <div class="box">
       <p> Fecha del pedido: <span><?= $fetch_orders['fecha_pedido']; ?></span> </p>
       <p> Nombre: <span><?= $fetch_orders['nombre']; ?></span> </p>
@@ -65,6 +70,7 @@ if(isset($_GET['delete'])){
       <p> Precio total: <span><?= $fetch_orders['total_precio']; ?> €</span> </p>
       <p> Método de pago: <span><?= $fetch_orders['metodo']; ?></span> </p>
       <p> Estado del pedido: <span><?= $fetch_orders['estado_pedido']; ?></span> </p>
+      <!-- Formulario para actualizar el estado-->
       <form action="" method="post">
          <input type="hidden" name="order_id" value="<?= $fetch_orders['id']; ?>">
          <select name="order_state" class="select">

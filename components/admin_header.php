@@ -1,4 +1,5 @@
 <?php
+//código que muestra un mensaje encima del header cuando se relizan algunas acciones en la web
    if(isset($message)){
       foreach($message as $message){
          echo '
@@ -10,7 +11,7 @@
       }
    }
 ?>
-
+<!-- Header de la pagina de admin-->
 <header class="header">
 
    <section class="flex">
@@ -33,6 +34,7 @@
 
       <div class="profile">
          <?php
+         //muestra el admin al pulsar en el icono de usuario
             $select_profile = $conn->prepare("SELECT * FROM `usuario` WHERE id = ?");
             $select_profile->execute([$admin_id]);
             $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);

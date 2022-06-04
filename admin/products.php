@@ -6,10 +6,12 @@ session_start();
 
 $admin_id = $_SESSION['admin_id'];
 
+// si no hay iniciada sesion de un admin reenvia a login
+
 if(!isset($admin_id)){
    header('location:admin_login.php');
 };
-
+//función que añade un producto
 if(isset($_POST['add_product'])){
 
    $name = $_POST['name'];   
@@ -31,14 +33,14 @@ if(isset($_POST['add_product'])){
    $image_size_03 = $_FILES['image_03']['size'];
    $image_tmp_name_03 = $_FILES['image_03']['tmp_name'];
    $image_folder_03 = '../uploaded_img/'.$image_03;
-
+//compruebo que no ecxista ya un producto con ese nombre
    $select_products = $conn->prepare("SELECT * FROM `productos` WHERE nombre = ?");
    $select_products->execute([$name]);
-
+// si existe se muestra este mensaje
    if($select_products->rowCount() > 0){
       $message[] = 'Ya hay un producto con ese nombre';
    }else{
-
+      // si no se añade a la base de datos
       $insert_products = $conn->prepare("INSERT INTO `productos`(nombre, detalles, precio, categoria, imagen_01, imagen_02, imagen_03) VALUES(?,?,?,?,?,?,?)");
       $insert_products->execute([$name, $details, $price, $category, $image_01, $image_02, $image_03]);
 
@@ -58,6 +60,8 @@ if(isset($_POST['add_product'])){
 
 };
 
+//función para borrar los productos
+
 if(isset($_GET['delete'])){
 
    $delete_id = $_GET['delete'];
@@ -69,6 +73,9 @@ if(isset($_GET['delete'])){
    unlink('../uploaded_img/'.$fetch_delete_image['imagen_03']);
    $delete_product = $conn->prepare("DELETE FROM `productos` WHERE id = ?");
    $delete_product->execute([$delete_id]);
+
+   // esta parte no es necesaria porque al borrar el producto ya se borran las filas de las demás tablas relacionadas
+
    /*$delete_cart = $conn->prepare("DELETE FROM `carrito` WHERE producto_id = ?");
    $delete_cart->execute([$delete_id]);
    $delete_wishlist = $conn->prepare("DELETE FROM `wishlist` WHERE producto_id = ?");
@@ -99,7 +106,7 @@ if(isset($_GET['delete'])){
 <section class="add-products">
 
    <h1 class="heading">Añadir producto</h1>
-
+   <!-- Formulario para añadir producto-->
    <form action="" method="post" enctype="multipart/form-data">
       <div class="flex">
          <div class="inputBox">
@@ -154,6 +161,7 @@ if(isset($_GET['delete'])){
    <div class="box-container">
 
    <?php
+   //muestro los productos añadidos
       $select_products = $conn->prepare("SELECT * FROM `productos` ORDER BY `id` DESC ");
       $select_products->execute();
       if($select_products->rowCount() > 0){

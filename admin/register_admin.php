@@ -5,11 +5,12 @@ include '../components/connect.php';
 session_start();
 
 $admin_id = $_SESSION['admin_id'];
+// si no hay iniciada sesion de un admin reenvía a login
 
 if(!isset($admin_id)){
    header('location:login.php');
 }
-
+//función que crea un administrador
 if(isset($_POST['submit'])){
 
    $name = $_POST['nombre'];   
@@ -17,7 +18,7 @@ if(isset($_POST['submit'])){
    $cpass = sha1($_POST['cpassword']);
    $email = $_POST['email'];
    $user_type = $_POST['user_type'];   
-
+//compruebo que no haya el mismo email en la base de datos
    $select_admin = $conn->prepare("SELECT * FROM `usuario` WHERE email = ?");
    $select_admin->execute([$email]);
    $row = $select_admin->fetch(PDO::FETCH_ASSOC);
@@ -25,9 +26,11 @@ if(isset($_POST['submit'])){
    if($select_admin->rowCount() > 0){
     $message[] = 'Ya existe un administrador con ese email';
     }else{
+       //compruebo que las contraseñas sean iguales
       if($pass != $cpass){
          $message[] = 'Las contraseñas no coinciden';
       }else{
+         //guardo en la base de datos el administrador
          $insert_admin = $conn->prepare("INSERT INTO `usuario`(nombre, email, password, tipo_usuario ) VALUES(?,?,?,?)");
          $insert_admin->execute([$name,$email, $cpass, $user_type]);
          $message[] = 'Administrador creado correctamente';
@@ -55,7 +58,7 @@ if(isset($_POST['submit'])){
 <?php include '../components/admin_header.php'; ?>
 
 <section class="form-container">
-
+<!-- Formulario de registro de administrador-->
    <form action="" method="post">
       <h3>Registro Administrador</h3>
       <input type="text" name="nombre" required placeholder="Introduce tu nombre " maxlength="100"  class="box">

@@ -3,6 +3,7 @@
 include 'components/connect.php';
 
 session_start();
+//Si hay sesion iniciada guardo en $user_id el usuario que ha iniciado la sesión si no lo dejo vacio
 
 if(isset($_SESSION['user_id'])){
    $user_id = $_SESSION['user_id'];
@@ -10,7 +11,7 @@ if(isset($_SESSION['user_id'])){
    $user_id = '';
    
 };
-
+// metodo que envia el mensaje
 if(isset($_POST['send'])){
 
    $name = $_POST['nombre'];
@@ -21,11 +22,11 @@ if(isset($_POST['send'])){
 
    $select_message = $conn->prepare("SELECT * FROM `mensajes` WHERE nombre = ? AND email = ? AND telefono = ? AND mensaje = ?");
    $select_message->execute([$name, $email, $number, $msg]);
-
+// si ya has enviado el mismo emnsaje muestra este aviso
    if($select_message->rowCount() > 0){
       $message[] = 'Ya has enviado este mensaje';
    }else{
-
+//inserto en la base de datos el mensaje
       $insert_message = $conn->prepare("INSERT INTO `mensajes`(usuario_id, nombre, email, telefono, mensaje) VALUES(?,?,?,?,?)");
       $insert_message->execute([$user_id, $name, $email, $number, $msg]);
 

@@ -1,3 +1,4 @@
+<!-- Función para hacer logout-->
 <?php
 
 include 'connect.php';

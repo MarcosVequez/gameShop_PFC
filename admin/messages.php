@@ -6,10 +6,12 @@ session_start();
 
 $admin_id = $_SESSION['admin_id'];
 
+// si no hay iniciada sesion de un admin reenvia a login
+
 if(!isset($admin_id)){
    header('location:login.php');
 };
-
+//función que borra los mensajes
 if(isset($_GET['delete'])){
    $delete_id = $_GET['delete'];
    $delete_message = $conn->prepare("DELETE FROM `mensajes` WHERE id = ?");
@@ -43,11 +45,13 @@ if(isset($_GET['delete'])){
 <div class="box-container">
 
    <?php
+   //llamada a la base de datos para obtener los mensajes
       $select_messages = $conn->prepare("SELECT * FROM `mensajes`");
       $select_messages->execute();
       if($select_messages->rowCount() > 0){
          while($fetch_message = $select_messages->fetch(PDO::FETCH_ASSOC)){
    ?>
+   <!-- Se muestran los mensajes -->
    <div class="box">
    <p> Id mensaje : <span><?= $fetch_message['id']; ?></span></p>
    <p> Id usuario : <span><?= $fetch_message['usuario_id']; ?></span></p>

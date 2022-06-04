@@ -3,14 +3,14 @@
 include 'components/connect.php';
 
 session_start();
-
+//Si hay sesion iniciada guardo en $user_id el usuario que ha iniciado la sesión si no lo dejo vacio
 if(isset($_SESSION['user_id'])){
    $user_id = $_SESSION['user_id'];
 }else{
    $user_id = '';
    header('location:login.php');
 };
-
+//función que crea un pedido en la base de datos
 if(isset($_POST['pedido'])){
 
    $name = $_POST['nombre'];   
@@ -20,15 +20,15 @@ if(isset($_POST['pedido'])){
    $direccion =  $_POST['calle'] .', '. $_POST['piso'] .', '. $_POST['ciudad'] .', '. $_POST['provincia'] .', '. $_POST['pais'] .' - CP: '. $_POST['codigo_postal'];
    $total_productos = $_POST['total_productos'];
    $total_precio = $_POST['total_precio'];
-
+   //compruebo que en el carrito hay productos
    $check_cart = $conn->prepare("SELECT * FROM `carrito` WHERE usuario_id = ?");
    $check_cart->execute([$user_id]);
-
+   //si hay productos
    if($check_cart->rowCount() > 0){
-
+      // guardo en pedido en la base de datos
       $insert_order = $conn->prepare("INSERT INTO `pedidos`(usuario_id, nombre, telefono, email, metodo, direccion, total_productos, total_precio) VALUES(?,?,?,?,?,?,?,?)");
       $insert_order->execute([$user_id, $name, $telefono, $email, $metodo, $direccion, $total_productos, $total_precio]);
-
+      //borro los productos del carrito
       $delete_cart = $conn->prepare("DELETE FROM `carrito` WHERE usuario_id = ?");
       $delete_cart->execute([$user_id]);
 
@@ -70,14 +70,18 @@ if(isset($_POST['pedido'])){
       <?php
          $total_precio = 0;
          $cart_items[] = '';
+         //miro que el carrito tenga productos
          $select_cart = $conn->prepare("SELECT * FROM `carrito` WHERE usuario_id = ?");
          $select_cart->execute([$user_id]);
          if($select_cart->rowCount() > 0){
             while($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)){
+               //guardo los items concatenando nombre * precio
                $cart_items[] = $fetch_cart['nombre'].' ('.$fetch_cart['precio'].' x '. $fetch_cart['cantidad'].') - ';
+               // lista de los productos 
                $total_productos = implode($cart_items);
+               //sumo el precio de todos los productos
                $total_precio += ($fetch_cart['precio'] * $fetch_cart['cantidad']);
-      ?>
+      ?><!-- muestro cada producto con su precio y la cantidad-->
          <p> <?= $fetch_cart['nombre']; ?> <span>(<?= $fetch_cart['precio'].' € x '. $fetch_cart['cantidad'] ; ?>)</span> </p>
       <?php
             }
@@ -87,11 +91,11 @@ if(isset($_POST['pedido'])){
       ?>
          <input type="hidden" name="total_productos" value="<?= $total_productos; ?>">
          <input type="hidden" name="total_precio" value="<?= $total_precio; ?>" value="">
-         <div class="grand-total">Total : <span><?= $total_precio; ?> $</span></div>
+         <div class="grand-total">Total : <span><?= $total_precio; ?> €</span></div>
       </div>
 
       <h3>Realiza el pedido</h3>
-
+         <!--Formulario para hacer el pedido -->
       <div class="flex">
          <div class="inputBox">
             <span>Nombre :</span>
