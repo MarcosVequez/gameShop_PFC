@@ -4,6 +4,10 @@ include 'components/connect.php';
 
 session_start();
 
+// Si hay sesión iniciada guardo en $user_id al usuario con sesión iniciada, 
+//si el usuario es admin lo redirijo al dashboard de admin guardando al usuario en $admin_id
+// si no lo dejo vacio
+
 if(isset($_SESSION['user_id'])){
    $user_id = $_SESSION['user_id'];
 }elseif(isset($_SESSION['admin_id'])){
@@ -14,14 +18,20 @@ else{
    $user_id = '';
 };
 
+// código que se encarga de iniciar sesión
+
 if(isset($_POST['submit'])){
 
    $email = $_POST['email'];  
    $password = sha1($_POST['password']);   
 
+   // Consulta a la base de datos con los valores email y password que pasamos al ejecutar el post
    $select_user = $conn->prepare("SELECT * FROM `usuario` WHERE email = ? AND password= ?");
    $select_user->execute([$email, $password]);
    $row = $select_user->fetch(PDO::FETCH_ASSOC);
+   
+   //si el resultado da una fila compruebo si es admin o usuario y en función de ello
+   // guardo en $_SESSION y redirijo a la página que corresponda
 
    if($select_user->rowCount() > 0){
     if($row['tipo_usuario'] == 'admin'){
@@ -56,11 +66,11 @@ if(isset($_POST['submit'])){
 
 </head>
 <body>
-   
+  <!--Incluyo el componente web_header --> 
 <?php include 'components/web_header.php'; ?>
 
 <section class="form-container">
-
+   <!--  Formulario donde se introducen los parámetros que se envían en el método Post--> 
    <form action="" method="post">
       <h3>Login </h3>
       <input type="email" name="email" required placeholder="Introduce tu email" maxlength="50"  class="box" >
@@ -71,7 +81,7 @@ if(isset($_POST['submit'])){
    </form>
 
 </section>
-
+  <!--Incluyo el componente fotter --> 
 <?php include './components/footer.php'; ?>
 
 <script src="js/script.js"></script>

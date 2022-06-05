@@ -3,7 +3,9 @@
 include './components/connect.php';
 
 session_start();
-
+// Si hay sesión iniciada guardo en $user_id al usuario con sesión iniciada, si el usuario es admin lo redirijo al dashboard de admin
+// guardando al usuario en $admin_id
+// si no lo dejo vacio
 if(isset($_SESSION['user_id'])){
    $user_id = $_SESSION['user_id'];
 }elseif(isset($_SESSION['admin_id'])){
@@ -13,6 +15,8 @@ if(isset($_SESSION['user_id'])){
 else{
    $user_id = '';
 };
+
+//incluyo el componente wishlist_cart
 
 include './components/wishlist_cart.php';
 
@@ -36,11 +40,12 @@ include './components/wishlist_cart.php';
 
 </head>
 <body>
-   
+ <!-- Incluyo el componente header -->  
 <?php include './components/web_header.php'; ?>
 
 <div class="home-bg">
 
+<!--Slider de la página principal -->
 <section class="home">
 
    <div class="swiper home-slider">
@@ -88,9 +93,9 @@ include './components/wishlist_cart.php';
 </section>
 
 </div>
-
+<!-- Slider de tarjetas de categorias -->
 <section class="category">
-
+   <!-- Incluyo el component category-slider  -->
    <?php include './components/category_slider.php'; ?>
 
 </section>
@@ -99,14 +104,16 @@ include './components/wishlist_cart.php';
 
    <h1 class="heading">últimos productos</h1>
 
-  >
+  
    <div class="box-container">
+      <!-- Busco en la base de datos los últimos 9 productos añadidos ordenados descendiendo -->
    <?php
      $select_products = $conn->prepare("SELECT * FROM `productos` ORDER BY `id` DESC  LIMIT 9"); 
      $select_products->execute();
      if($select_products->rowCount() > 0){
       while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
    ?>
+   <!-- incluyo el componente box-product -->
    <?php include './components/box_product.php'; ?>
    <?php
       }
@@ -120,14 +127,15 @@ include './components/wishlist_cart.php';
 </section>
 
 
-
+<!-- incluyo el componente footer -->
 <?php include './components/footer.php'; ?>
 
+<!-- Script que añade el slider -->
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 
 <script src="js/script.js"></script>
 
-
+<!-- Configuración de los sliders de la página home -->
 <script>
 
 var swiper = new Swiper(".home-slider", {
